@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------
 
 """
-    SpecGaussSim(var₁=>param₁, var₂=>param₂, ...)
+    FFTGaussSim(var₁=>param₁, var₂=>param₂, ...)
 
 Spectral Gaussian simulation (a.k.a. FFT simulation).
 
@@ -21,13 +21,13 @@ Spectral Gaussian simulation (a.k.a. FFT simulation).
 Gutjahr 1997. *General joint conditional simulations using a fast
 Fourier transform method.*
 """
-@simsolver SpecGaussSim begin
+@simsolver FFTGaussSim begin
   @param variogram = GaussianVariogram()
   @param mean = 0.0
   @global threads = cpucores()
 end
 
-function preprocess(problem::SimulationProblem, solver::SpecGaussSim)
+function preprocess(problem::SimulationProblem, solver::FFTGaussSim)
   hasdata(problem) && @warn "Conditional spectral Gaussian simulation is not currently supported"
   
   # retrieve problem info
@@ -75,7 +75,7 @@ function preprocess(problem::SimulationProblem, solver::SpecGaussSim)
 end
 
 function solvesingle(problem::SimulationProblem, covars::NamedTuple,
-                     solver::SpecGaussSim, preproc)
+                     solver::FFTGaussSim, preproc)
   # retrieve problem info
   pdomain = domain(problem)
   dims = size(pdomain)

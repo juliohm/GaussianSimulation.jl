@@ -13,13 +13,13 @@ using CpuId
 
 import GeoStatsBase: preprocess, solvesingle
 
-include("direct.jl")
-include("spectral.jl")
-include("sequential.jl")
+include("lu.jl")
+include("fft.jl")
+include("seq.jl")
 
 export
-  DirectGaussSim,
-  SpecGaussSim,
+  LUGaussSim,
+  FFTGaussSim,
   SeqGaussSim
 
 end

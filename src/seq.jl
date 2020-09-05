@@ -26,6 +26,11 @@ default with the `variogram` only.
 For each location in the simulation `path`, a maximum number of
 neighbors `maxneighbors` is used to fit a Gaussian distribution.
 The neighbors are searched according to a `neighborhood`.
+
+### References
+
+Gomez-Hernandez & Journel 1993. *Joint Sequential Simulation of
+MultiGaussian Fields*
 """
 @simsolver SeqGaussSim begin
   @param variogram = GaussianVariogram()

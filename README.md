@@ -4,7 +4,7 @@
 
 Gaussian simulation solvers for the [GeoStats.jl](https://github.com/JuliaEarth/GeoStats.jl) framework.
 
-### DirectGaussSim
+### LUGaussSim
 
 This solver provides an implementation of direct Gaussian simulation (a.k.a. LU simulation)
 as described in [Alabert 1987](https://link.springer.com/article/10.1007/BF00897191). In this
@@ -17,9 +17,9 @@ is appropriate for relatively small simulation domains (e.g. 100x100 grids) wher
 to factorize the full covariance. For larger domains (e.g. 3D grids), other methods are available
 such as sequential Gaussian simulation, spectral methods, and FFT moving averages.
 
-### SpecGaussSim
+### FFTGaussSim
 
-This solver provides an implementation of spectral Gaussian simulation
+This solver provides an implementation of spectral Gaussian simulation (a.k.a. FFT simulation)
 as described in [Gutjahr 1997](https://link.springer.com/article/10.1007/BF02769641).
 In this method, the covariance function is perturbed in the frequency
 domain after a fast Fourier transform. White noise is added to the phase
@@ -30,6 +30,14 @@ to make sure that the correlation length is small enough compared to the grid
 size. As a general rule of thumb, avoid correlation lengths greater than 1/3
 of the grid. The method is extremely fast, and can be used to generate large
 3D realizations.
+
+### SeqGaussSim
+
+This solver provides an implementation of sequential Gaussian simulation as described in
+[Gomez-Hernandez & Journel 1993](https://link.springer.com/chapter/10.1007/978-94-011-1739-5_8).
+The method traverses all locations of the spatial domain according to a path, approximates the
+conditional distribution function within a neighborhood using Kriging, and assigns a value to
+the center of the neighborhood by sampling from this distribution.
 
 ## Installation
 

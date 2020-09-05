@@ -3,9 +3,9 @@
 # ------------------------------------------------------------------
 
 """
-    DirectGaussSim(var₁=>param₁, var₂=>param₂, ...)
+    LUGaussSim(var₁=>param₁, var₂=>param₂, ...)
 
-Direct Gaussian simulation (a.k.a. LU simulation).
+LU Gaussian simulation.
 
 ## Parameters
 
@@ -21,16 +21,16 @@ Direct Gaussian simulation (a.k.a. LU simulation).
 Simulate two variables `var₁` and `var₂` independently:
 
 ```julia
-julia> DirectGaussSim(:var₁ => (variogram=SphericalVariogram(),mean=10.),
-                      :var₂ => (variogram=GaussianVariogram(),))
+julia> LUGaussSim(:var₁ => (variogram=SphericalVariogram(),mean=10.),
+                  :var₂ => (variogram=GaussianVariogram(),))
 ```
 
 Simulate two correlated variables `var₁` and `var₂` with correlation `0.7`:
 
 ```julia
-julia> DirectGaussSim(:var₁ => (variogram=SphericalVariogram(),mean=10.),
-                      :var₂ => (variogram=GaussianVariogram(),),
-                      (:var₁,:var₂) => (correlation=0.7,))
+julia> LUGaussSim(:var₁ => (variogram=SphericalVariogram(),mean=10.),
+                  :var₂ => (variogram=GaussianVariogram(),),
+                  (:var₁,:var₂) => (correlation=0.7,))
 ```
 
 ### References
@@ -40,13 +40,13 @@ LU decomposition of the covariance matrix.*
 
 Oliver 2003. *Gaussian cosimulation: modeling of the cross-covariance.*
 """
-@simsolver DirectGaussSim begin
+@simsolver LUGaussSim begin
   @param variogram = GaussianVariogram()
   @param mean = nothing
   @jparam correlation = 0.0
 end
 
-function preprocess(problem::SimulationProblem, solver::DirectGaussSim)
+function preprocess(problem::SimulationProblem, solver::LUGaussSim)
   # retrieve problem info
   pdata   = data(problem)
   pdomain = domain(problem)
@@ -136,7 +136,7 @@ function preprocess(problem::SimulationProblem, solver::DirectGaussSim)
 end
 
 function solvesingle(problem::SimulationProblem, covars::NamedTuple,
-                     solver::DirectGaussSim, preproc)
+                     solver::LUGaussSim, preproc)
   # preprocessed parameters
   conames = covars.names
   params = preproc[conames]
