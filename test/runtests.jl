@@ -21,6 +21,7 @@ datadir = joinpath(@__DIR__,"data")
 
 # list of tests
 testfiles = [
+  "lu.jl",
   "seq.jl"
 ]
 

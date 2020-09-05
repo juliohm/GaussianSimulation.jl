@@ -1,13 +1,13 @@
 @testset "SeqGaussSim" begin
-  𝒮 = georef((Z=[1.,0.,1.],), [25. 50. 75.; 25. 75. 50.])
+  𝒮 = georef((z=[1.,0.,1.],), [25. 50. 75.; 25. 75. 50.])
   𝒟 = RegularGrid(100,100)
   N = 3
 
-  𝒫₁ = SimulationProblem(𝒮, 𝒟, :Z, N)
-  𝒫₂ = SimulationProblem(𝒟, :Z=>Float64, N)
+  𝒫₁ = SimulationProblem(𝒮, 𝒟, :z, N)
+  𝒫₂ = SimulationProblem(𝒟, :z=>Float64, N)
 
   solver = SeqGaussSim(
-    :Z => (variogram=GaussianVariogram(range=35.),
+    :z => (variogram=GaussianVariogram(range=35.),
            neighborhood=BallNeighborhood(10.))
   )
 
@@ -16,7 +16,7 @@
   sol₂ = solve(𝒫₂, solver)
 
   # basic checks
-  reals = sol₁[:Z]
+  reals = sol₁[:z]
   inds = LinearIndices(size(𝒟))
   @test all(reals[i][inds[26,26]] == 1. for i in 1:N)
   @test all(reals[i][inds[51,76]] == 0. for i in 1:N)
