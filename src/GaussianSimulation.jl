@@ -6,6 +6,8 @@ module GaussianSimulation
 
 using GeoStatsBase
 using Variography
+using KrigingEstimators
+using Distributions
 using LinearAlgebra
 using Statistics
 using FFTW
