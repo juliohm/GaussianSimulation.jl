@@ -2,21 +2,7 @@
 
 [![][travis-img]][travis-url] [![][codecov-img]][codecov-url]
 
-## Installation
-
-Get the latest stable release with Julia's package manager:
-
-```julia
-] add GaussianSimulation
-```
-
-## Usage
-
-This package is part of the [GeoStats.jl](https://github.com/JuliaEarth/GeoStats.jl) framework.
-
-For a simple example of usage, please check the main documentation.
-
-## Available solvers
+Gaussian simulation solvers for the [GeoStats.jl](https://github.com/JuliaEarth/GeoStats.jl) framework.
 
 ### DirectGaussSim
 
@@ -44,6 +30,20 @@ to make sure that the correlation length is small enough compared to the grid
 size. As a general rule of thumb, avoid correlation lengths greater than 1/3
 of the grid. The method is extremely fast, and can be used to generate large
 3D realizations.
+
+## Installation
+
+Get the latest stable release with Julia's package manager:
+
+```julia
+] add GaussianSimulation
+```
+
+## Usage
+
+This package is part of the [GeoStats.jl](https://github.com/JuliaEarth/GeoStats.jl) framework.
+
+For a simple example of usage, please check the main documentation.
 
 ## Asking for help
 
