@@ -5,21 +5,21 @@
 module GaussianSimulation
 
 using GeoStatsBase
-
 using Variography
 using LinearAlgebra
 using Statistics
 using FFTW
 using CpuId
 
-
 import GeoStatsBase: preprocess, solvesingle
 
 include("direct.jl")
 include("spectral.jl")
+include("sequential.jl")
 
 export
   DirectGaussSim,
-  SpecGaussSim
+  SpecGaussSim,
+  SeqGaussSim
 
 end
