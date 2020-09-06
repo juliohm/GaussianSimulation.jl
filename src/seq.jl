@@ -5,7 +5,7 @@
 """
     SeqGaussSim(var₁=>param₁, var₂=>param₂, ...)
 
-A sequential Gaussian simulation solver.
+Sequential Gaussian simulation.
 
 ## Parameters
 

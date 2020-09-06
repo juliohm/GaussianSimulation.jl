@@ -5,7 +5,7 @@
 """
     FFTGaussSim(var₁=>param₁, var₂=>param₂, ...)
 
-Spectral Gaussian simulation (a.k.a. FFT simulation).
+FFT Gaussian simulation.
 
 ## Parameters
 
