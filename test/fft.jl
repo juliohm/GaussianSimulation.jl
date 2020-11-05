@@ -11,7 +11,7 @@
   end
 
   Random.seed!(2019)
-  solver = FFTGaussSim(:z => (variogram=GaussianVariogram(distance=Ellipsoidal([20.,5.],[0.])),))
+  solver = FFTGaussSim(:z => (variogram=GaussianVariogram(distance=aniso2distance([20.,5.],[0.])),))
   solution = solve(problem, solver)
 
   if visualtests
