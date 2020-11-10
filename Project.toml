@@ -1,7 +1,7 @@
 name = "GaussianSimulation"
 uuid = "e40f437e-72ad-4a71-a29e-78c1c8d897bb"
 authors = ["Júlio Hoffimann <julio.hoffimann@gmail.com> and contributors"]
-version = "0.1.3"
+version = "0.2.0"
 
 [deps]
 CpuId = "adafc99b-e345-5852-983c-f28acb93d879"
