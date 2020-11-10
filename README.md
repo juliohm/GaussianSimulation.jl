@@ -4,7 +4,7 @@
 
 Gaussian simulation solvers for the [GeoStats.jl](https://github.com/JuliaEarth/GeoStats.jl) framework.
 
-### LUGaussSim
+### LUGS
 
 This solver provides an implementation of direct Gaussian simulation (a.k.a. LU simulation)
 as described in [Alabert 1987](https://link.springer.com/article/10.1007/BF00897191). In this
@@ -17,7 +17,7 @@ is appropriate for relatively small simulation domains (e.g. 100x100 grids) wher
 to factorize the full covariance. For larger domains (e.g. 3D grids), other methods are available
 such as sequential Gaussian simulation, spectral methods, and FFT moving averages.
 
-### FFTGaussSim
+### FFTGS
 
 This solver provides an implementation of spectral Gaussian simulation (a.k.a. FFT simulation)
 as described in [Gutjahr 1997](https://link.springer.com/article/10.1007/BF02769641).
@@ -31,7 +31,7 @@ size. As a general rule of thumb, avoid correlation lengths greater than 1/3
 of the grid. The method is extremely fast, and can be used to generate large
 3D realizations.
 
-### SeqGaussSim
+### SGS
 
 This solver provides an implementation of sequential Gaussian simulation as described in
 [Gomez-Hernandez & Journel 1993](https://link.springer.com/chapter/10.1007/978-94-011-1739-5_8).
