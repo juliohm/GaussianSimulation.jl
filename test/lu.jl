@@ -1,4 +1,4 @@
-@testset "LUGaussSim" begin
+@testset "LUGS" begin
   𝒮 = georef((z=[0.,1.,0.,1.,0.],), [0. 25. 50. 75. 100.])
   𝒟 = RegularGrid(100)
 
@@ -6,7 +6,7 @@
   # conditional simulation
   # ----------------------
   problem = SimulationProblem(𝒮, 𝒟, :z, 2)
-  solver = LUGaussSim(:z => (variogram=SphericalVariogram(range=10.),))
+  solver = LUGS(:z => (variogram=SphericalVariogram(range=10.),))
 
   Random.seed!(2018)
   solution = solve(problem, solver)
@@ -19,7 +19,7 @@
   # unconditional simulation
   # ------------------------
   problem = SimulationProblem(𝒟, :z=>Float64, 2)
-  solver = LUGaussSim(:z => (variogram=SphericalVariogram(range=10.),))
+  solver = LUGS(:z => (variogram=SphericalVariogram(range=10.),))
 
   Random.seed!(2018)
   solution = solve(problem, solver)
@@ -33,9 +33,9 @@
   # -------------
   𝒟 = RegularGrid(500)
   problem = SimulationProblem(𝒟, (:z=>Float64,:y=>Float64), 1)
-  solver = LUGaussSim(:z => (variogram=SphericalVariogram(range=10.),),
-                      :y => (variogram=GaussianVariogram(range=10.),),
-                      (:z,:y) => (correlation=0.95,))
+  solver = LUGS(:z => (variogram=SphericalVariogram(range=10.),),
+                :y => (variogram=GaussianVariogram(range=10.),),
+                (:z,:y) => (correlation=0.95,))
 
   Random.seed!(2020)
   solution = solve(problem, solver)

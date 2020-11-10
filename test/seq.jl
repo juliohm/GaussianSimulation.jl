@@ -1,4 +1,4 @@
-@testset "SeqGaussSim" begin
+@testset "SGS" begin
   𝒮 = georef((z=[1.,0.,1.],), [25. 50. 75.; 25. 75. 50.])
   𝒟 = RegularGrid(100,100)
   N = 3
@@ -6,7 +6,7 @@
   𝒫₁ = SimulationProblem(𝒮, 𝒟, :z, N)
   𝒫₂ = SimulationProblem(𝒟, :z=>Float64, N)
 
-  solver = SeqGaussSim(
+  solver = SGS(
     :z => (variogram=GaussianVariogram(range=35.),
            neighborhood=BallNeighborhood(10.))
   )

@@ -1,9 +1,9 @@
-@testset "FFTGaussSim" begin
+@testset "FFTGS" begin
   𝒟 = RegularGrid(100,100)
   problem = SimulationProblem(𝒟, :z=>Float64, 3)
 
   Random.seed!(2019)
-  solver = FFTGaussSim(:z => (variogram=GaussianVariogram(range=10.),))
+  solver = FFTGS(:z => (variogram=GaussianVariogram(range=10.),))
   solution = solve(problem, solver)
 
   if visualtests
@@ -11,7 +11,7 @@
   end
 
   Random.seed!(2019)
-  solver = FFTGaussSim(:z => (variogram=GaussianVariogram(distance=aniso2distance([20.,5.],[0.])),))
+  solver = FFTGS(:z => (variogram=GaussianVariogram(distance=aniso2distance([20.,5.],[0.])),))
   solution = solve(problem, solver)
 
   if visualtests

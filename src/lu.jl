@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------
 
 """
-    LUGaussSim(var₁=>param₁, var₂=>param₂, ...)
+    LUGS(var₁=>param₁, var₂=>param₂, ...)
 
 LU Gaussian simulation.
 
@@ -21,16 +21,16 @@ LU Gaussian simulation.
 Simulate two variables `var₁` and `var₂` independently:
 
 ```julia
-julia> LUGaussSim(:var₁ => (variogram=SphericalVariogram(),mean=10.),
-                  :var₂ => (variogram=GaussianVariogram(),))
+julia> LUGS(:var₁ => (variogram=SphericalVariogram(),mean=10.),
+            :var₂ => (variogram=GaussianVariogram(),))
 ```
 
 Simulate two correlated variables `var₁` and `var₂` with correlation `0.7`:
 
 ```julia
-julia> LUGaussSim(:var₁ => (variogram=SphericalVariogram(),mean=10.),
-                  :var₂ => (variogram=GaussianVariogram(),),
-                  (:var₁,:var₂) => (correlation=0.7,))
+julia> LUGS(:var₁ => (variogram=SphericalVariogram(),mean=10.),
+            :var₂ => (variogram=GaussianVariogram(),),
+            (:var₁,:var₂) => (correlation=0.7,))
 ```
 
 ### References
@@ -40,13 +40,13 @@ LU decomposition of the covariance matrix.*
 
 Oliver 2003. *Gaussian cosimulation: modeling of the cross-covariance.*
 """
-@simsolver LUGaussSim begin
+@simsolver LUGS begin
   @param variogram = GaussianVariogram()
   @param mean = nothing
   @jparam correlation = 0.0
 end
 
-function preprocess(problem::SimulationProblem, solver::LUGaussSim)
+function preprocess(problem::SimulationProblem, solver::LUGS)
   # retrieve problem info
   pdata   = data(problem)
   pdomain = domain(problem)
@@ -136,7 +136,7 @@ function preprocess(problem::SimulationProblem, solver::LUGaussSim)
 end
 
 function solvesingle(problem::SimulationProblem, covars::NamedTuple,
-                     solver::LUGaussSim, preproc)
+                     solver::LUGS, preproc)
   # preprocessed parameters
   conames = covars.names
   params = preproc[conames]

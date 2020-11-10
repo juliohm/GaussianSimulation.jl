@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------
 
 """
-    SeqGaussSim(var₁=>param₁, var₂=>param₂, ...)
+    SGS(var₁=>param₁, var₂=>param₂, ...)
 
 Sequential Gaussian simulation.
 
@@ -32,7 +32,7 @@ The neighbors are searched according to a `neighborhood`.
 Gomez-Hernandez & Journel 1993. *Joint Sequential Simulation of
 MultiGaussian Fields*
 """
-@simsolver SeqGaussSim begin
+@simsolver SGS begin
   @param variogram = GaussianVariogram()
   @param mean = nothing
   @param degree = nothing
@@ -43,7 +43,7 @@ MultiGaussian Fields*
   @param path = nothing
 end
 
-function preprocess(problem::SimulationProblem, solver::SeqGaussSim)
+function preprocess(problem::SimulationProblem, solver::SGS)
   # retrieve problem info
   pdomain = domain(problem)
 
@@ -85,5 +85,5 @@ function preprocess(problem::SimulationProblem, solver::SeqGaussSim)
 end
 
 solvesingle(problem::SimulationProblem, covars::NamedTuple,
-            solver::SeqGaussSim, preproc) =
+            solver::SGS, preproc) =
   solvesingle(problem, covars, SeqSim(), preproc)

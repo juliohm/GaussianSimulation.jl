@@ -19,9 +19,6 @@ include("lu.jl")
 include("fft.jl")
 include("seq.jl")
 
-export
-  LUGaussSim,
-  FFTGaussSim,
-  SeqGaussSim
+export LUGS, FFTGS, SGS
 
 end
