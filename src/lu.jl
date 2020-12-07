@@ -9,8 +9,9 @@ LU Gaussian simulation.
 
 ## Parameters
 
-* `variogram` - theoretical variogram (default to `GaussianVariogram()`)
-* `mean`      - mean of (unconditional simulation) (default to `0`)
+* `variogram` - Theoretical variogram (default to `GaussianVariogram()`)
+* `mean`      - Mean of unconditional simulation (default to `0`)
+* `mapping`   - Data mapping method (default to `NearestMapping()`)
 
 ## Joint parameters
 
@@ -43,6 +44,7 @@ Oliver 2003. *Gaussian cosimulation: modeling of the cross-covariance.*
 @simsolver LUGS begin
   @param variogram = GaussianVariogram()
   @param mean = nothing
+  @param mapping = NearestMapping()
   @jparam correlation = 0.0
 end
 
@@ -64,19 +66,26 @@ function preprocess(problem::SimulationProblem, solver::LUGS)
     # preprocess parameters for individual variables
     for var in conames
       # get parameters for variable
-      vparams = covars.params[(var,)]
+      varparams = covars.params[(var,)]
       V = variables(problem)[var]
 
       # determine variogram model
-      γ = vparams.variogram
+      γ = varparams.variogram
 
       # check stationarity
       @assert isstationary(γ) "variogram model must be stationary"
 
+      # determine data mappings
+      vmapping = if hasdata(problem)
+        map(pdata, pdomain, (var,), varparams.mapping)[var]
+      else
+        Dict()
+      end
+
       # retrieve data locations in domain and data values
       dlocs = Vector{Int}()
       z₁ = Vector{V}()
-      for (loc, dloc) in datamap(problem, var)
+      for (loc, dloc) in vmapping
         push!(dlocs, loc)
         push!(z₁, pdata[var][dloc])
       end
@@ -103,12 +112,12 @@ function preprocess(problem::SimulationProblem, solver::LUGS)
         L₂₂ = cholesky(Symmetric(C₂₂ - A₂₁*B₁₂)).L
       end
 
-      if !isnothing(vparams.mean) && !isempty(dlocs)
+      if !isnothing(varparams.mean) && !isempty(dlocs)
         @warn "mean can only be specified in unconditional simulation"
       end
 
       # mean for unconditional simulation
-      μ = isnothing(vparams.mean) ? zero(V) : vparams.mean
+      μ = isnothing(varparams.mean) ? zero(V) : varparams.mean
 
       # save preprocessed parameters for variable
       push!(coparams, (z₁, d₂, L₂₂, μ, dlocs, slocs))

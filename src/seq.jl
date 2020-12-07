@@ -22,6 +22,7 @@ default with the `variogram` only.
 * `neighborhood` - Neighborhood on which to search neighbors
 * `maxneighbors` - Maximum number of neighbors (default to 10)
 * `path`         - Simulation path (default to `LinearPath()`)
+* `mapping`      - Data mapping method (default to `NearestMapping()`)
 
 For each location in the simulation `path`, a maximum number of
 neighbors `maxneighbors` is used to fit a Gaussian distribution.
@@ -41,6 +42,7 @@ MultiGaussian Fields*
   @param minneighbors = 1
   @param maxneighbors = 10
   @param path = nothing
+  @param mapping = NearestMapping()
 end
 
 function preprocess(problem::SimulationProblem, solver::SGS)
@@ -70,12 +72,16 @@ function preprocess(problem::SimulationProblem, solver::SGS)
       # determine simulation path
       path = varparams.path ≠ nothing ? varparams.path : LinearPath()
 
+      # determine data mapping
+      mapping = varparams.mapping
+
       # equivalent parameters for SeqSim solver
       param = (estimator=estimator,
                neighborhood=varparams.neighborhood,
                minneighbors=varparams.minneighbors,
                maxneighbors=varparams.maxneighbors,
-               marginal=marginal, path=path)
+               marginal=marginal, path=path,
+               mapping=mapping)
 
       push!(params, var => param)
     end
@@ -84,6 +90,5 @@ function preprocess(problem::SimulationProblem, solver::SGS)
   preprocess(problem, SeqSim(params...))
 end
 
-solvesingle(problem::SimulationProblem, covars::NamedTuple,
-            solver::SGS, preproc) =
+solvesingle(problem::SimulationProblem, covars::NamedTuple, ::SGS, preproc) =
   solvesingle(problem, covars, SeqSim(), preproc)
