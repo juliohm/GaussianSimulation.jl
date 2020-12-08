@@ -1,7 +1,7 @@
 name = "GaussianSimulation"
 uuid = "e40f437e-72ad-4a71-a29e-78c1c8d897bb"
 authors = ["Júlio Hoffimann <julio.hoffimann@gmail.com> and contributors"]
-version = "0.2.0"
+version = "0.3.0"
 
 [deps]
 CpuId = "adafc99b-e345-5852-983c-f28acb93d879"
@@ -17,7 +17,7 @@ Variography = "04a0146e-e6df-5636-8d7f-62fa9eb0b20c"
 CpuId = "0.2"
 Distributions = "0.23, 0.24"
 FFTW = "1.2"
-GeoStatsBase = "0.13, 0.14, 0.15"
+GeoStatsBase = "0.16"
 KrigingEstimators = "0.4"
 Variography = "0.8, 0.9, 0.10"
 julia = "1.4"
