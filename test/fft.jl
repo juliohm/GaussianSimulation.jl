@@ -7,7 +7,7 @@
   solution = solve(problem, solver)
 
   if visualtests
-    @plottest plot(solution,size=(900,300)) joinpath(datadir,"FFT-iso.png") !istravis
+    @plottest plot(solution,size=(900,300)) joinpath(datadir,"FFT-iso.png") !isCI
   end
 
   Random.seed!(2019)
@@ -15,6 +15,6 @@
   solution = solve(problem, solver)
 
   if visualtests
-    @plottest plot(solution,size=(900,300)) joinpath(datadir,"FFT-aniso.png") !istravis
+    @plottest plot(solution,size=(900,300)) joinpath(datadir,"FFT-aniso.png") !isCI
   end
 end
