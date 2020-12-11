@@ -1,6 +1,6 @@
 # GaussianSimulation.jl
 
-[![][travis-img]][travis-url] [![][codecov-img]][codecov-url]
+[![][build-img]][build-url] [![][codecov-img]][codecov-url]
 
 Gaussian simulation solvers for the [GeoStats.jl](https://github.com/JuliaEarth/GeoStats.jl) framework.
 
@@ -57,8 +57,8 @@ For a simple example of usage, please check the main documentation.
 
 If you have any questions, please contact our community on the [gitter channel](https://gitter.im/JuliaEarth/GeoStats.jl).
 
-[travis-img]: https://travis-ci.org/JuliaEarth/GaussianSimulation.jl.svg?branch=master
-[travis-url]: https://travis-ci.org/JuliaEarth/GaussianSimulation.jl
+[build-img]: https://img.shields.io/github/workflow/status/JuliaEarth/GaussianSimulation.jl/CI?style=flat-square
+[build-url]: https://github.com/JuliaEarth/GaussianSimulation.jl/actions
 
 [codecov-img]: https://codecov.io/gh/JuliaEarth/GaussianSimulation.jl/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/JuliaEarth/GaussianSimulation.jl
