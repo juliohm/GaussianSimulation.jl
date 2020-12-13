@@ -40,6 +40,8 @@ function preprocess(problem::SimulationProblem, solver::FFTGS)
   # number of threads in FFTW
   FFTW.set_num_threads(solver.threads)
 
+  mactypeof = Dict(name(v) => mactype(v) for v in variables(problem))
+
   # result of preprocessing
   preproc = Dict()
 
@@ -48,8 +50,8 @@ function preprocess(problem::SimulationProblem, solver::FFTGS)
       # get user parameters
       varparams = covars.params[(var,)]
 
-      # get variable type
-      V = variables(problem)[var]
+      # determine value type
+      V = mactypeof[var]
 
       # determine variogram model and mean
       γ = varparams.variogram
@@ -74,18 +76,19 @@ function preprocess(problem::SimulationProblem, solver::FFTGS)
   preproc
 end
 
-function solvesingle(problem::SimulationProblem, covars::NamedTuple,
-                     solver::FFTGS, preproc)
+function solvesingle(problem::SimulationProblem, covars::NamedTuple, ::FFTGS, preproc)
   # retrieve problem info
   pdomain = domain(problem)
   dims = size(pdomain)
+
+  mactypeof = Dict(name(v) => mactype(v) for v in variables(problem))
 
   varreal = map(covars.names) do var
     # unpack preprocessed parameters
     γ, μ, F = preproc[var]
 
-    # result type
-    V = variables(problem)[var]
+    # determine value type
+    V = mactypeof[var]
 
     # perturbation in frequency domain
     P = F .* exp.(im .* angle.(fft(rand(V, dims))))

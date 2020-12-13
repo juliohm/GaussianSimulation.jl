@@ -53,6 +53,8 @@ function preprocess(problem::SimulationProblem, solver::LUGS)
   pdata   = data(problem)
   pdomain = domain(problem)
 
+  mactypeof = Dict(name(v) => mactype(v) for v in variables(problem))
+
   # result of preprocessing
   preproc = Dict()
 
@@ -67,7 +69,9 @@ function preprocess(problem::SimulationProblem, solver::LUGS)
     for var in conames
       # get parameters for variable
       varparams = covars.params[(var,)]
-      V = variables(problem)[var]
+
+      # determine value type
+      V = mactypeof[var]
 
       # determine variogram model
       γ = varparams.variogram
